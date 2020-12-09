@@ -6,17 +6,17 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-const SubscriptionController = require('./controllers/subscriptionController');
-const AuthMiddleware = require('./middleware/authMiddleware');
-const UsersControllers = require('./controllers/usersControllers');
+const subscriptionController = require('./controllers/subscriptionController');
+const authMiddleware = require('./middleware/authMiddleware');
+const usersControllers = require('./controllers/usersControllers');
 
 
 
 //rotas do Gabriel
 
-app.post('/api/users/sign-up', UsersControllers.postSignUp);
-app.post('/api/users/sign-in', UsersControllers.postSignIn);
-app.post('/api/users/sign-out', AuthMiddleware, usersControllers.postSignOut);
+app.post('/api/users/sign-up', usersControllers.postSignUp);
+app.post('/api/users/sign-in', usersControllers.postSignIn);
+app.post('/api/users/sign-out', authMiddleware, usersControllers.postSignOut);
 
 
 
@@ -31,7 +31,7 @@ app.post('/api/users/sign-out', AuthMiddleware, usersControllers.postSignOut);
 
 
 //rotas da Thalia
-app.post('/api/user/subscription', AuthMiddleware, SubscriptionController.create)
+app.post('/api/user/subscription', authMiddleware, subscriptionController.create)
 
 
 

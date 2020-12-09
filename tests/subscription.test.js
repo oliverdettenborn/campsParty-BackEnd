@@ -1,6 +1,6 @@
 const supertest = require('supertest');
-const app = require('../../src/app');
-const db = require('../../src/database');
+const app = require('../src/app');
+const db = require('../src/database');
 
 const cleanDatabase = async () => {
   await db.query('DELETE FROM subscription');
@@ -58,13 +58,29 @@ describe('POST /sign-in', () => {
 });
 
 describe('POST /user/subscription', () => {
-  it('should return status 201 when sucess to finish addmission'), async () => {
+  it('should return status 201 when sucess to finish addmission', async () => {
     const body = {
       name: 'Teste',
       lastName: 'da Siva',
       address: 'R. do teste',
-      numberAddress: 150,
-      addOnAdress: 'apto 001',
+      numberAddress: '150',
+      addOnAddress: 'apto 001',
+      city: 'Testelândia',
+      uf: 'TT',
+      postalCode: '90000-000',
+      gender: 'NI',
+      ticketType: 'none',
+      accommodationId: "6",
+      phone: '(99) 12345-6789',
+      admissionCost: '0,00',
+    }
+
+    const objresponse = {
+      name: 'Teste',
+      lastName: 'da Siva',
+      address: 'R. do teste',
+      numberAddress: "150",
+      addOnAddress: 'apto 001',
       city: 'Testelândia',
       uf: 'TT',
       postalCode: '90000-000',
@@ -72,17 +88,17 @@ describe('POST /user/subscription', () => {
       ticketType: 'none',
       accommodationId: 6,
       phone: '(99) 12345-6789',
-      admissionCost: '0,00',
+      admissionCost: 'R$ 0,00',
     }
 
-    const response = await supertest(app).post('/api/users/subscription').send(body).set('Authorization',`Bearer ${token}`);
+    const response = await supertest(app).post('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);
 
     expect(response.status).toBe(201);
-    expect(response.body).toMatchObject(body);
-    expect(response.body.id).toHaveProperty('id');
-  }
+    expect(response.body).toMatchObject(objresponse);
+    expect(response.body).toHaveProperty('id');
+  });
 
-  it('should return status 401 when dont send token'), async () => {
+  it('should return status 401 when dont send token', async () => {
     const body = {
       name: 'Teste',
       lastName: 'da Siva',
@@ -99,20 +115,21 @@ describe('POST /user/subscription', () => {
       admissionCost: '0,00',
     }
 
-    const response = await supertest(app).post('/api/users/subscription').send(body);
+    const response = await supertest(app).post('/api/user/subscription').send(body);
     expect(response.status).toBe(401);
-  }
-  it('should return status 422 when missing atribute'), async () => {
+  });
+
+  it('should return status 422 when missing atribute', async () => {
     const body = {
       name: 'Teste',
       lastName: 'da Siva',
     }
 
-    const response = await supertest(app).post('/api/users/subscription').send(body);
+    const response = await supertest(app).post('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);;
     expect(response.status).toBe(422);
-  }
+  });
 
-  it('should return status 422 when send data with wrong format UF'), async () => {
+  it('should return status 422 when send data with wrong format UF', async () => {
     const body = {
       name: 'Teste',
       lastName: 'da Siva',
@@ -128,11 +145,11 @@ describe('POST /user/subscription', () => {
       phone: '99123456789',
       admissionCost: '0.00',
     }
-    const response = await supertest(app).post('/api/users/subscription').send(body);
+    const response = await supertest(app).post('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);;
     expect(response.status).toBe(422);
-  }
+  });
 
-  it('should return status 422 when send data with wrong format postalCode'), async () => {
+  it('should return status 422 when send data with wrong format postalCode', async () => {
     const body = {
       name: 'Teste',
       lastName: 'da Siva',
@@ -148,11 +165,11 @@ describe('POST /user/subscription', () => {
       phone: '99123456789',
       admissionCost: '0.00',
     }
-    const response = await supertest(app).post('/api/users/subscription').send(body);
+    const response = await supertest(app).post('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);;
     expect(response.status).toBe(422);
-  }
+  });
 
-  it('should return status 422 when send data with wrong format phone'), async () => {
+  it('should return status 422 when send data with wrong format phone', async () => {
     const body = {
       name: 'Teste',
       lastName: 'da Siva',
@@ -168,10 +185,11 @@ describe('POST /user/subscription', () => {
       phone: '99123456789',
       admissionCost: '0.00',
     }
-    const response = await supertest(app).post('/api/users/subscription').send(body);
+    const response = await supertest(app).post('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);;
     expect(response.status).toBe(422);
-  }
-  it('should return status 422 when send data with wrong format adissionCost'), async () => {
+  });
+  
+  it('should return status 422 when send data with wrong format adissionCost', async () => {
     const body = {
       name: 'Teste',
       lastName: 'da Siva',
@@ -187,7 +205,7 @@ describe('POST /user/subscription', () => {
       phone: '(99) 12345-6789',
       admissionCost: '0.00',
     }
-    const response = await supertest(app).post('/api/users/subscription').send(body);
+    const response = await supertest(app).post('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);;
     expect(response.status).toBe(422);
-  }
+  });
 })

@@ -1,10 +1,10 @@
 const supertest = require('supertest');
 const app = require('../src/app');
-const db = require('../src/database/pool');
+const db = require('../src/database');
 
 const cleanDatabase = async () => {
     await db.query('DELETE FROM sessions');
-    await db.query('DELETE FROM registered');
+    await db.query('DELETE FROM users');
 }
 
 beforeAll(cleanDatabase);
@@ -50,7 +50,7 @@ describe('POST /sign-up', () => {
         userId = response.body.id;
     });
 
-    it ('should return status 409 -> email is already registered', async () => {
+    it ('should return status 409 -> email is already users', async () => {
         const body = {
             cpf: '222.222.222-22',
             email: 'teste@gmail.com',
@@ -63,7 +63,7 @@ describe('POST /sign-up', () => {
         expect(response.status).toBe(409);
     });
 
-    it ('should return status 409 -> cpf is already registered', async () => {
+    it ('should return status 409 -> cpf is already users', async () => {
         const body = {
             cpf: '111.111.111-11',
             email: 'teste2@gmail.com',
@@ -180,7 +180,7 @@ describe('POST /sign-out', () => {
         const response = await supertest(app)
             .post('/api/users/sign-out')
             .set('Authorization',`Bearer ${token}`);
-
+        
         expect(response.status).toBe(401);
     });
 });

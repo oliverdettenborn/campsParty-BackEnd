@@ -1,6 +1,6 @@
 const userSchemas = require('../schemas/userSchemas');
-const usersRepository = require('../models/users');
-const sessionsRepository = require('../models/sessions');
+const usersRepository = require('../repository/users');
+const sessionsRepository = require('../repository/sessions');
 const helpers = require('../utils/helpers');
 
 const postSignUp = async (req, res) => {

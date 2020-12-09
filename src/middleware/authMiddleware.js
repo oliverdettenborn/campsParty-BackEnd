@@ -16,7 +16,7 @@ async function authMiddleware(req, res, next){
     if (!user) return res.status(401).send({ error: 'Invalid token' });
   
     req.userId = session.userId;
-    req.user = { userId: user.id, cpf: user.cpf };
+    req.user = { id: user.id, cpf: user.cpf };
     next();
   } catch (e) {
     console.error(e);
