@@ -7,13 +7,13 @@ const stripHtml = (params) => {
 }
 
 const filterObject = (obj, notAllowed) => {
-  const filtered = Object.fromEntries(
-      Object.entries(obj).filter(([key]) => !notAllowed.includes(key))
-  );
-  return filtered;
+    const filtered = Object.fromEntries(
+        Object.entries(obj).filter(([key]) => !notAllowed.includes(key))
+    );
+    return filtered;
 }
 
 module.exports = {
-  stripHtml,
-  filterObject
+    stripHtml,
+    filterObject
 }
