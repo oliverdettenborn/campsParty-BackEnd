@@ -1,5 +1,5 @@
 const uuid = require('uuid');
-const db = require('../database/pool');
+const db = require('../database');
 
 const createByUserId = async (userId) => {
     const token = uuid.v4();

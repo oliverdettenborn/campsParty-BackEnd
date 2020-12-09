@@ -6,12 +6,9 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-//importações de repositorio
-
+const subscriptionController = require('./controllers/subscriptionController');
 const authMiddleware = require('./middleware/authMiddleware');
 const usersControllers = require('./controllers/usersControllers');
-
-
 
 
 
@@ -34,7 +31,7 @@ app.post('/api/users/sign-out', authMiddleware, usersControllers.postSignOut);
 
 
 //rotas da Thalia
-
+app.post('/api/user/subscription', authMiddleware, subscriptionController.create)
 
 
 
