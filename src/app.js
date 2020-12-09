@@ -8,7 +8,8 @@ app.use(express.json());
 
 //importações de repositorio
 
-
+const authMiddleware = require('./middleware/authMiddleware');
+const usersControllers = require('./controllers/usersControllers');
 
 
 
@@ -16,7 +17,9 @@ app.use(express.json());
 
 //rotas do Gabriel
 
-
+app.post('/api/users/sign-up', usersControllers.postSignUp);
+app.post('/api/users/sign-in', usersControllers.postSignIn);
+app.post('/api/users/sign-out', authMiddleware, usersControllers.postSignOut);
 
 
 

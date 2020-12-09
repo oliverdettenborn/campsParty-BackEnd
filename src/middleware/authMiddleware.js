@@ -1,18 +1,28 @@
 const sessionsRepository = require("../models/sessions");
+const usersRepository = require("../models/users");
 
-async function authMiddleware(req,res,next){
-  const auth = req.header('Authorization');
-  if(!auth) return res.status(401).send({ message: 'User token not found' });
+async function authMiddleware(req, res, next){
+  try {
+    const auth = req.header('Authorization');
+    if(!auth) return res.status(401).send({ message: 'User token not found' });
+  
+    const tokenHeader = auth.split(' ')[1];
+    if(!tokenHeader) return res.status(401).send({ message: 'User token not found' });
+  
+    const session = await sessionsRepository.findByToken(tokenHeader);
+    if(!session) return res.status(401).send({ message: 'Invalid token' });
+  
+    const user = await usersRepository.findById(session.userId);
+    if (!user) return res.status(401).send({ error: 'Invalid token' });
+  
+    req.user = user;
+    req.session = session;
 
-  const tokenHeader = auth.split(' ')[1];
-  if(!tokenHeader) return res.status(401).send({ message: 'User token not found' });
-
-  const session = await sessionsRepository.findByToken(tokenHeader);
-  if(!session) return res.status(401).send({ message: 'Invalid token' });
-
-  req.userId = session.userId;
-  req.session = session;
-  next();
+    next();
+  } catch (e) {
+    console.error(e);
+    return res.sendStatus(500);
+  }
 }
 
 module.exports = authMiddleware;
