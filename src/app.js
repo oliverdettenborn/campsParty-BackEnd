@@ -32,6 +32,7 @@ app.post('/api/users/sign-out', authMiddleware, usersControllers.postSignOut);
 
 //rotas da Thalia
 app.post('/api/user/subscription', authMiddleware, subscriptionController.create)
+app.put('/api/user/subscription', authMiddleware, subscriptionController.changeData)
 
 
 

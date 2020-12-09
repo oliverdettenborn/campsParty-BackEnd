@@ -209,3 +209,156 @@ describe('POST /user/subscription', () => {
     expect(response.status).toBe(422);
   });
 })
+
+describe('PUT /user/subscription', () => {
+  it('should return status 201 when sucess to change addmission', async () => {
+    const body = {
+      name: 'Alteração',
+      lastName: 'da Siva',
+      address: 'R. da alteração',
+      numberAddress: '150',
+      addOnAddress: 'apto 002',
+      city: 'Alterolândia',
+      uf: 'Al',
+      postalCode: '90000-000',
+      gender: 'NI',
+      ticketType: 'hotel',
+      accommodationId: "2",
+      phone: '(99) 12345-6789',
+      admissionCost: '220,00',
+    }
+
+    const objresponse = {
+      name: 'Alteração',
+      lastName: 'da Siva',
+      address: 'R. da alteração',
+      numberAddress: '150',
+      addOnAddress: 'apto 002',
+      city: 'Alterolândia',
+      uf: 'AL',
+      postalCode: '90000-000',
+      gender: 'NI',
+      ticketType: 'hotel',
+      accommodationId: 2,
+      phone: '(99) 12345-6789',
+      admissionCost: 'R$ 220,00',
+    }
+
+    const response = await supertest(app).put('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);
+
+    expect(response.status).toBe(201);
+    expect(response.body).toMatchObject(objresponse);
+    expect(response.body).toHaveProperty('id');
+  });
+
+  it('should return status 401 when dont send token', async () => {
+    const body = {
+      name: 'Alteração',
+      lastName: 'da Siva',
+      address: 'R. da alteração',
+      numberAddress: '150',
+      addOnAddress: 'apto 002',
+      city: 'Alterolândia',
+      uf: 'AL',
+      postalCode: '90000-000',
+      gender: 'NI',
+      ticketType: 'hotel',
+      accommodationId: "2",
+      phone: '(99) 12345-6789',
+      admissionCost: '220,00',
+    }
+
+    const response = await supertest(app).put('/api/user/subscription').send(body);
+    expect(response.status).toBe(401);
+  });
+
+  it('should return status 422 when missing atribute', async () => {
+    const body = {
+      name: 'Alteração',
+      lastName: 'da Siva',
+    }
+
+    const response = await supertest(app).put('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);;
+    expect(response.status).toBe(422);
+  });
+
+  it('should return status 422 when send data with wrong format UF', async () => {
+    const body = {
+      name: 'Alteração',
+      lastName: 'da Siva',
+      address: 'R. da alteração',
+      numberAddress: '150',
+      addOnAddress: 'apto 002',
+      city: 'Alterolândia',
+      uf: 'ALLLLLL',
+      postalCode: '90000-000',
+      gender: 'NI',
+      ticketType: 'hotel',
+      accommodationId: "2",
+      phone: '(99) 12345-6789',
+      admissionCost: '220,00',
+    }
+    const response = await supertest(app).put('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);;
+    expect(response.status).toBe(422);
+  });
+
+  it('should return status 422 when send data with wrong format postalCode', async () => {
+    const body = {
+      name: 'Alteração',
+      lastName: 'da Siva',
+      address: 'R. da alteração',
+      numberAddress: '150',
+      addOnAddress: 'apto 002',
+      city: 'Alterolândia',
+      uf: 'ALLLLLL',
+      postalCode: '9-000',
+      gender: 'NI',
+      ticketType: 'hotel',
+      accommodationId: "2",
+      phone: '(99) 12345-6789',
+      admissionCost: '220,00',
+    }
+    const response = await supertest(app).put('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);;
+    expect(response.status).toBe(422);
+  });
+
+  it('should return status 422 when send data with wrong format phone', async () => {
+    const body = {
+      name: 'Alteração',
+      lastName: 'da Siva',
+      address: 'R. da alteração',
+      numberAddress: '150',
+      addOnAddress: 'apto 002',
+      city: 'Alterolândia',
+      uf: 'ALLLLLL',
+      postalCode: '90000-000',
+      gender: 'NI',
+      ticketType: 'hotel',
+      accommodationId: "2",
+      phone: '12345-6789',
+      admissionCost: '220,00',
+    }
+    const response = await supertest(app).put('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);;
+    expect(response.status).toBe(422);
+  });
+  
+  it('should return status 422 when send data with wrong format adissionCost', async () => {
+    const body = {
+      name: 'Alteração',
+      lastName: 'da Siva',
+      address: 'R. da alteração',
+      numberAddress: '150',
+      addOnAddress: 'apto 002',
+      city: 'Alterolândia',
+      uf: 'ALLLLLL',
+      postalCode: '90000-000',
+      gender: 'NI',
+      ticketType: 'hotel',
+      accommodationId: "2",
+      phone: '(99) 12345-6789',
+      admissionCost: '220.00',
+    }
+    const response = await supertest(app).put('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);;
+    expect(response.status).toBe(422);
+  });
+})
