@@ -1,6 +1,7 @@
 const subspriptionSchema = require('../schemas/subscription');
 const subscriptionRepository = require('../repository/subscription');
-const { stripHtml } = require('../utils/helpers');
+const usersRepository = require('../repository/users');
+const { stripHtml, filterObject } = require('../utils/helpers');
 
 async function create(req,res){
   try{
@@ -12,7 +13,13 @@ async function create(req,res){
     const { id, cpf } = req.user;
 
     const newSubscription = await subscriptionRepository.create(id, cpf, data);
-    res.status(201).send(newSubscription);
+    const updateUser = await usersRepository.findById(id);
+    const userData = filterObject(updateUser, ['password']);
+
+    res.status(201).send({
+      user: userData,
+      subscription: newSubscription
+    });
 
   }catch(e){
     console.log(e);

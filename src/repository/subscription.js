@@ -22,6 +22,8 @@ async function create(userId, cpf, data){
     [name, lastName, address, numberAddress, addOnAddress, city, uf.toUpperCase(), postalCode, gender, ticketType, parseInt(accommodationId), phone, admissionCost, userId, cpf]
   )
 
+  await db.query('UPDATE users SET "completeRegistration"=true')
+
   return result.rows[0]
 }
 

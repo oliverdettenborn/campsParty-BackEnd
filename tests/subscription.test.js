@@ -94,8 +94,9 @@ describe('POST /user/subscription', () => {
     const response = await supertest(app).post('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);
 
     expect(response.status).toBe(201);
-    expect(response.body).toMatchObject(objresponse);
-    expect(response.body).toHaveProperty('id');
+    expect(response.body.subscription).toMatchObject(objresponse);
+    expect(response.body.subscription).toHaveProperty('id');
+    expect(response.body.user.completeRegistration).toBeTruthy();
   });
 
   it('should return status 401 when dont send token', async () => {
