@@ -9,7 +9,8 @@ app.use(express.json());
 //importações de repositorio
 
 
-
+const SubscriptionController = require('./controllers/subscriptionController');
+const AuthMiddleware = require('./middleware/authMiddleware');
 
 
 
@@ -31,7 +32,7 @@ app.use(express.json());
 
 
 //rotas da Thalia
-
+app.post('/api/user/subscription', AuthMiddleware, SubscriptionController.create)
 
 
 

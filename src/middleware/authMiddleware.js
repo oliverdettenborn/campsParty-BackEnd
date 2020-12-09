@@ -1,5 +1,5 @@
-const sessionsRepository = require("../models/sessions");
-const UserRepository = require("../models/users");
+const sessionsRepository = require("../repository/sessions");
+const UserRepository = require("../repository/users");
 
 async function authMiddleware(req,res,next){
   const auth = req.header('Authorization');
