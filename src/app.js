@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -6,9 +5,10 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-const subscriptionController = require('./controllers/subscriptionController');
 const authMiddleware = require('./middleware/authMiddleware');
+const subscriptionController = require('./controllers/subscriptionController');
 const usersControllers = require('./controllers/usersControllers');
+const choicesController = require('./controllers/choicesController');
 
 
 
@@ -23,7 +23,8 @@ app.post('/api/users/sign-out', authMiddleware, usersControllers.postSignOut);
 
 
 //rotas do Lucas
-
+app.get('/partners/hotels', authMiddleware, choicesController.getHotels);
+app.get('/event/activities/:day', authMiddleware, choicesController.getActivities);
 
 
 
