@@ -43,6 +43,7 @@ async function changeData(req,res){
     const refreshSubscription = await subscriptionRepository.changeInformationUser(id, oldSubscription, data);
     const updateUser = await usersRepository.findById(id);
     const userData = filterObject(updateUser, ['password']);
+    
     res.status(200).send({
       user: userData,
       subscription: refreshSubscription
