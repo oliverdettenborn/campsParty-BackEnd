@@ -5,8 +5,8 @@ async function getHotelsData() {
     return response.rows;
 }
 
-async function getActivitiesData() {
-    const response = await connection.query('SELECT * FROM activities');
+async function getActivitiesData(day) {
+    const response = await connection.query(`SELECT * FROM "activities-${day}"`);
     return response.rows;
 }
 

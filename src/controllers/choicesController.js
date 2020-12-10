@@ -12,10 +12,12 @@ async function getHotels(req, res) {
     return res.status(200).send(availableHotels);
 }
 
-async function getActivites(req, res) {
+async function getActivities(req, res) {
+    const { day } = req.params;
+
     let availableActivities;
     try {
-        availableActivities = await choicesRepository.getActivitiesData();
+        availableActivities = await choicesRepository.getActivitiesData(day);
     }
     catch {
         return res.sendStatus(500);
@@ -24,4 +26,4 @@ async function getActivites(req, res) {
     return res.status(200).send(availableActivities);
 }
 
-module.exports = { getHotels, getActivites };
+module.exports = { getHotels, getActivities };
