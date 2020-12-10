@@ -1,4 +1,4 @@
-const { choicesRepository } = require('../repositories')
+const choicesRepository = require('../repository/choices')
 
 async function getHotels(req, res) {
     let availableHotels;

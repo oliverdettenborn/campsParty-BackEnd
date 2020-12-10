@@ -1,4 +1,4 @@
-const connection = require("../database/pool");
+const connection = require("../database/index");
 
 async function getHotelsData() {
     const response = await connection.query("SELECT * FROM hotels WHERE type = 'hotel'");
