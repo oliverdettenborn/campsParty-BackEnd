@@ -41,7 +41,13 @@ async function changeData(req,res){
       return res.status(404).send({ error: 'Subscription not found' })
     }
     const refreshSubscription = await subscriptionRepository.changeInformationUser(id, oldSubscription, data);
-    res.status(201).send(refreshSubscription);
+    const updateUser = await usersRepository.findById(id);
+    const userData = filterObject(updateUser, ['password']);
+    
+    res.status(201).send({
+      user: userData,
+      subscription: refreshSubscription
+    });
 
   }catch(e){
     console.log(e);
