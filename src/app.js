@@ -10,31 +10,22 @@ const subscriptionController = require('./controllers/subscriptionController');
 const usersControllers = require('./controllers/usersControllers');
 const choicesController = require('./controllers/choicesController');
 
-
-
-//rotas do Gabriel
-
+//users
 app.post('/api/users/sign-up', usersControllers.postSignUp);
 app.post('/api/users/sign-in', usersControllers.postSignIn);
 app.post('/api/users/sign-out', authMiddleware, usersControllers.postSignOut);
+app.put('/api/users/ticketType', authMiddleware, usersControllers.putTicketType);
 
-
-
-
-
-//rotas do Lucas
+//choices
 app.get('/partners/hotels', authMiddleware, choicesController.getHotels);
 app.get('/event/activities/:day', choicesController.getActivities);
 app.post('/event/activities', choicesController.postFormActivities);
+//app.get('/partners/not-hotels', authMiddleware, choicesController.getNotHotelsData);
 
-
-
-
-
-
-//rotas da Thalia
+//subscription
 app.post('/api/user/subscription', authMiddleware, subscriptionController.create)
 app.put('/api/user/subscription', authMiddleware, subscriptionController.changeData)
+app.get('/api/user/subscription', authMiddleware, subscriptionController.getSubscription)
 
 
 

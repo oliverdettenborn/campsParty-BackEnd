@@ -5,6 +5,11 @@ async function getHotelsData() {
     return response.rows;
 }
 
+async function getNotHotelsData() {
+    const response = await connection.query("SELECT * FROM hotels WHERE NOT type = 'hotel'");
+    return response.rows;
+}
+
 async function getActivitiesData(day) {
     const response = await connection.query(`SELECT * FROM "activities-${day}"`);
     return response.rows;
@@ -33,7 +38,7 @@ async function postChosenActivities(userActivities, userId) {
     }
 }
 
-module.exports = { getHotelsData, getActivitiesData, postChosenActivities };
+module.exports = { getHotelsData, getActivitiesData, postChosenActivities, getNotHotelsData };
 
 // {
 //     friday: {

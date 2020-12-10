@@ -15,16 +15,17 @@ afterAll(async () => {
   db.end();
 });
 
-let token, userId;
+let token;
 
 describe('POST /sign-up', () => {
   it ('should return status 201 -> success with valid params', async () => {
-      const body = {
-          cpf: '111.111.111-11',
-          email: 'teste@gmail.com',
-          password: '1234567',
-          passwordConfirmation: '1234567'
-      }
+    const body = {
+        cpf: '111.111.111-11',
+        email: 'teste@gmail.com',
+        password: '1234567',
+        passwordConfirmation: '1234567',
+        ticketType: 'hotel'
+    }
 
       const response = await supertest(app).post('/api/users/sign-up').send(body);
 
@@ -32,6 +33,8 @@ describe('POST /sign-up', () => {
       expect(response.body).toMatchObject({
           cpf: '111.111.111-11',
           email: 'teste@gmail.com',
+          ticketType: 'hotel',
+          completeRegistration: false
       });
 
       expect(response.body).toHaveProperty('id');
@@ -69,7 +72,6 @@ describe('POST /user/subscription', () => {
       uf: 'TT',
       postalCode: '90000-000',
       gender: 'NI',
-      ticketType: 'none',
       accommodationId: "6",
       phone: '(99) 12345-6789',
       admissionCost: '0,00',
@@ -85,7 +87,6 @@ describe('POST /user/subscription', () => {
       uf: 'TT',
       postalCode: '90000-000',
       gender: 'NI',
-      ticketType: 'none',
       accommodationId: 6,
       phone: '(99) 12345-6789',
       admissionCost: 'R$ 0,00',
@@ -110,7 +111,6 @@ describe('POST /user/subscription', () => {
       uf: 'TT',
       postalCode: '90000-000',
       gender: 'NI',
-      ticketType: 'none',
       accommodationId: 6,
       phone: '(99) 12345-6789',
       admissionCost: '0,00',
@@ -141,7 +141,6 @@ describe('POST /user/subscription', () => {
       uf: 'TTTTTTT',
       postalCode: '90000000',
       gender: 'NI',
-      ticketType: 'none',
       accommodationId: 6,
       phone: '99123456789',
       admissionCost: '0.00',
@@ -161,7 +160,6 @@ describe('POST /user/subscription', () => {
       uf: 'TT',
       postalCode: '90000000',
       gender: 'F',
-      ticketType: 'none',
       accommodationId: 6,
       phone: '99123456789',
       admissionCost: '0.00',
@@ -181,7 +179,6 @@ describe('POST /user/subscription', () => {
       uf: 'TT',
       postalCode: '90000-000',
       gender: 'M',
-      ticketType: 'none',
       accommodationId: 6,
       phone: '99123456789',
       admissionCost: '0.00',
@@ -201,13 +198,41 @@ describe('POST /user/subscription', () => {
       uf: 'TT',
       postalCode: '90000-000',
       gender: 'M',
-      ticketType: 'none',
       accommodationId: 6,
       phone: '(99) 12345-6789',
       admissionCost: '0.00',
     }
     const response = await supertest(app).post('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);;
     expect(response.status).toBe(422);
+  });
+})
+
+describe('GET /user/subscription', () => {
+  it('should return status 200 when sucess to get data addmission', async () => {
+    const objresponse = {
+      name: 'Teste',
+      lastName: 'da Siva',
+      address: 'R. do teste',
+      numberAddress: '150',
+      addOnAddress: 'apto 001',
+      city: 'Testelândia',
+      uf: 'TT',
+      postalCode: '90000-000',
+      gender: 'NI',
+      accommodationId: 6,
+      phone: '(99) 12345-6789',
+      admissionCost: 'R$ 0,00',
+    }
+
+    const response = await supertest(app).get('/api/user/subscription').set('Authorization',`Bearer ${token}`);
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject(objresponse);
+    expect(response.body).toHaveProperty('id');
+  });
+
+  it('should return status 401 when dont send token', async () => {
+    const response = await supertest(app).get('/api/user/subscription');
+    expect(response.status).toBe(401);
   });
 })
 
@@ -223,7 +248,6 @@ describe('PUT /user/subscription', () => {
       uf: 'Al',
       postalCode: '90000-000',
       gender: 'NI',
-      ticketType: 'hotel',
       accommodationId: "2",
       phone: '(99) 12345-6789',
       admissionCost: '220,00',
@@ -239,7 +263,6 @@ describe('PUT /user/subscription', () => {
       uf: 'AL',
       postalCode: '90000-000',
       gender: 'NI',
-      ticketType: 'hotel',
       accommodationId: 2,
       phone: '(99) 12345-6789',
       admissionCost: 'R$ 220,00',
@@ -247,9 +270,9 @@ describe('PUT /user/subscription', () => {
 
     const response = await supertest(app).put('/api/user/subscription').send(body).set('Authorization',`Bearer ${token}`);
 
-    expect(response.status).toBe(201);
-    expect(response.body).toMatchObject(objresponse);
-    expect(response.body).toHaveProperty('id');
+    expect(response.status).toBe(200);
+    expect(response.body.subscription).toMatchObject(objresponse);
+    expect(response.body.subscription).toHaveProperty('id');
   });
 
   it('should return status 401 when dont send token', async () => {
@@ -263,7 +286,6 @@ describe('PUT /user/subscription', () => {
       uf: 'AL',
       postalCode: '90000-000',
       gender: 'NI',
-      ticketType: 'hotel',
       accommodationId: "2",
       phone: '(99) 12345-6789',
       admissionCost: '220,00',
@@ -294,7 +316,6 @@ describe('PUT /user/subscription', () => {
       uf: 'ALLLLLL',
       postalCode: '90000-000',
       gender: 'NI',
-      ticketType: 'hotel',
       accommodationId: "2",
       phone: '(99) 12345-6789',
       admissionCost: '220,00',
@@ -314,7 +335,6 @@ describe('PUT /user/subscription', () => {
       uf: 'ALLLLLL',
       postalCode: '9-000',
       gender: 'NI',
-      ticketType: 'hotel',
       accommodationId: "2",
       phone: '(99) 12345-6789',
       admissionCost: '220,00',
@@ -334,7 +354,6 @@ describe('PUT /user/subscription', () => {
       uf: 'ALLLLLL',
       postalCode: '90000-000',
       gender: 'NI',
-      ticketType: 'hotel',
       accommodationId: "2",
       phone: '12345-6789',
       admissionCost: '220,00',
@@ -354,7 +373,6 @@ describe('PUT /user/subscription', () => {
       uf: 'ALLLLLL',
       postalCode: '90000-000',
       gender: 'NI',
-      ticketType: 'hotel',
       accommodationId: "2",
       phone: '(99) 12345-6789',
       admissionCost: '220.00',
