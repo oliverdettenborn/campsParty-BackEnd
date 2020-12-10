@@ -26,4 +26,20 @@ async function getActivities(req, res) {
     return res.status(200).send(availableActivities);
 }
 
-module.exports = { getHotels, getActivities };
+async function postFormActivities(req, res) {
+    try {
+        const userActivities = req.body;
+        // const { id } = req.user;
+        const id = 1;
+
+        await choicesRepository.postChosenActivities(userActivities, id);
+        
+        return res.sendStatus(201);
+    }
+    catch(err) {
+        console.log(err);
+        return res.sendStatus(500);
+    }
+}
+
+module.exports = { getHotels, getActivities, postFormActivities };

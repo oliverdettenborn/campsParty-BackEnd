@@ -24,7 +24,8 @@ app.post('/api/users/sign-out', authMiddleware, usersControllers.postSignOut);
 
 //rotas do Lucas
 app.get('/partners/hotels', authMiddleware, choicesController.getHotels);
-app.get('/event/activities/:day', authMiddleware, choicesController.getActivities);
+app.get('/event/activities/:day', choicesController.getActivities);
+app.post('/event/activities', choicesController.postFormActivities);
 
 
 

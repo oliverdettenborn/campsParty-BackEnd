@@ -144,6 +144,34 @@ describe('POST /sign-in', () => {
     });
 });
 
+describe ('POST /events/activities', () => {
+    it ('should return status 201 -> successful activities post', async () => {
+        const body = {
+            friday: {
+                morning: 'activity1',
+                afternoon: 'activity2',
+                night: 'activity3'
+            },
+            saturday: {
+                morning: 'activity4',
+                afternoon: 'activity5',
+                night: 'activity6'
+            },
+            sunday: {
+                morning: 'activity7',
+                afternoon: 'activity8',
+                night: 'activity9'
+            }
+        }
+        
+        const response = await supertest(app)
+            .post('/event/activities')
+            .send(body);
+
+        expect(response.status).toBe(201);
+    });
+});
+
 describe('POST /sign-out', () => {
     it ('should return status 401 -> auth header not found', async () => {
         const response = await supertest(app).post('/api/users/sign-out');

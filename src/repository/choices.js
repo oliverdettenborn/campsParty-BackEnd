@@ -10,4 +10,45 @@ async function getActivitiesData(day) {
     return response.rows;
 }
 
-module.exports = { getHotelsData, getActivitiesData };
+async function postChosenActivities(userActivities, userId) {
+    const days = ['friday', 'saturday', 'sunday'];
+    const momentsOfTheDay = ['morning', 'afternoon', 'night'];
+
+
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            const weekDay = days[i];
+            const hourOfTheDay = momentsOfTheDay[j];
+
+            const toDB = [userId, hourOfTheDay, userActivities[weekDay][hourOfTheDay], weekDay];
+            console.log(toDB);
+            const response = await connection.query(
+                // 'INSERT INTO choices ("userId", "hourOfTheDay", activity, day) VALUES ($1, $2, $3, $4) RETURNING *',
+                'SELECT * FROM choices',
+                toDB
+            );
+
+            console.log(response.rows[0]);
+        }
+    }
+}
+
+module.exports = { getHotelsData, getActivitiesData, postChosenActivities };
+
+// {
+//     friday: {
+//       morning: 'abc',
+//       afternoon: 'bcd',
+//       night: 'adf'
+//     },
+//     saturday: {
+//       morning: 'ahj',
+//       afternoon: 'sg',
+//       night: 'dfhe'
+//     },
+//     sunday: {
+//       morning: 'sfs',
+//       afternoon: 'bsfgs',
+//       night: 'bdsfbdf'
+//     }
+// }
