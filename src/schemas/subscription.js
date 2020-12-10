@@ -5,7 +5,7 @@ const subspriptionSchema = Joi.object({
   lastName: Joi.string().required(),
   address: Joi.string().required(),
   numberAddress: Joi.string().pattern(/^[\d]+$/, "only numbers").required(),
-  addOnAddress: Joi.string().min(4).max(15),
+  addOnAddress: Joi.string(),
   city: Joi.string().required(),
   uf: Joi.string().length(2).required(),
   postalCode: Joi.string().length(9).pattern(/^\d{5}-\d{3}$/, 'validate CEP to 99999-99').required(),

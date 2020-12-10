@@ -9,11 +9,11 @@ const isEmailOrCpfUnique = async (email, cpf) => {
 }
 
 const create = async (userParams) => {
-    const { email, password, cpf } = userParams;
+    const { email, password, cpf, ticketType } = userParams;
     const hashPassword = bcrypt.hashSync(password, 10);
 
-    const queryString = 'INSERT INTO users (cpf, email, password) VALUES ($1, $2, $3) RETURNING *';
-    const result = await db.query(queryString, [cpf, email, hashPassword]);
+    const queryString = 'INSERT INTO users (cpf, email, password, "ticketType") VALUES ($1, $2, $3,$4) RETURNING *';
+    const result = await db.query(queryString, [cpf, email, hashPassword, ticketType]);
     return result.rows[0];
 }
 
@@ -36,9 +36,18 @@ const findById = async (id) => {
     return user.rows[0];
 }
 
+const changeTicketType = async (id, newType) => {
+    const result = await db.query(
+        'UPDATE users SET "ticketType"=$1 WHERE id=$2 RETURNING *',
+        [newType, id]
+    )
+    return result.rows[0]
+}
+
 module.exports = {
     isEmailOrCpfUnique,
     create,
     findByEmailAndPassword,
     findById,
+    changeTicketType
 }

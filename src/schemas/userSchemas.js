@@ -5,7 +5,8 @@ const signUp = Joi.object({
     email: Joi.string().email().required(),
     ticketType: Joi.string().valid('none','hotel','tent').required(),
     password: Joi.string().alphanum().min(6).max(16).required(),
-    passwordConfirmation: Joi.ref('password')
+    passwordConfirmation: Joi.ref('password'),
+    ticketType: Joi.string().valid('none','hotel','tent').required(),
 });
 
 const signIn = Joi.object({
@@ -13,7 +14,12 @@ const signIn = Joi.object({
     password: Joi.string().required()
 });
 
+const putTicketType = Joi.object({
+    ticketType: Joi.string().valid('none','hotel','tent').required(),
+});
+
 module.exports = {
     signIn,
-    signUp
+    signUp,
+    putTicketType
 }

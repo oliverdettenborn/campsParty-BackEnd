@@ -35,7 +35,8 @@ describe('POST /sign-up', () => {
             cpf: '111.111.111-11',
             email: 'teste@gmail.com',
             password: '1234567',
-            passwordConfirmation: '1234567'
+            passwordConfirmation: '1234567',
+            ticketType: 'hotel'
         }
 
         const response = await supertest(app).post('/api/users/sign-up').send(body);
@@ -44,6 +45,8 @@ describe('POST /sign-up', () => {
         expect(response.body).toMatchObject({
             cpf: '111.111.111-11',
             email: 'teste@gmail.com',
+            ticketType: 'hotel',
+            completeRegistration: false
         });
 
         expect(response.body).toHaveProperty('id');
@@ -52,10 +55,11 @@ describe('POST /sign-up', () => {
 
     it ('should return status 409 -> email is already users', async () => {
         const body = {
-            cpf: '222.222.222-22',
+            cpf: '111.111.111-11',
             email: 'teste@gmail.com',
             password: '1234567',
-            passwordConfirmation: '1234567'
+            passwordConfirmation: '1234567',
+            ticketType: 'hotel'
         }
 
         const response = await supertest(app).post('/api/users/sign-up').send(body);
@@ -66,9 +70,10 @@ describe('POST /sign-up', () => {
     it ('should return status 409 -> cpf is already users', async () => {
         const body = {
             cpf: '111.111.111-11',
-            email: 'teste2@gmail.com',
+            email: 'teste@gmail.com',
             password: '1234567',
-            passwordConfirmation: '1234567'
+            passwordConfirmation: '1234567',
+            ticketType: 'hotel'
         }
 
         const response = await supertest(app).post('/api/users/sign-up').send(body);
@@ -81,7 +86,8 @@ describe('POST /sign-up', () => {
             cpf: '222.222.222-22',
             email: '  <h1> teste5@gmail.com </h1>  ',
             password: '1234567   ',
-            passwordConfirmation: '   1234567'
+            passwordConfirmation: '   1234567',
+            ticketType: 'hotel'
         }
 
         const response = await supertest(app).post('/api/users/sign-up').send(body);
