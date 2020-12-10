@@ -56,8 +56,25 @@ const postSignOut = async (req, res) => {
     }
 }
 
+const putTicketType = async (req, res) => {
+    try {
+        const { error } = userSchemas.putTicketType.validate(req.body);
+        if (error) return res.status(422).send({ error: error.details[0].message });
+        const { ticketType } = helpers.stripHtml(req.body);
+        const { id } = req.user
+
+        const user = await usersRepository.changeTicketType(id, ticketType);
+        const response = helpers.filterObject( user, ['password']);
+        res.status(200).send(response)
+    } catch (error) {
+        console.error(error);
+        return res.sendStatus(500);
+    }
+}
+
 module.exports = {
     postSignUp,
     postSignIn,
-    postSignOut
+    postSignOut,
+    putTicketType
 }
