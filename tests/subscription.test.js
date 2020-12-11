@@ -5,6 +5,7 @@ const db = require('../src/database');
 const cleanDatabase = async () => {
   await db.query('DELETE FROM subscription');
   await db.query('DELETE FROM sessions');
+  await db.query('DELETE FROM choices');
   await db.query('DELETE FROM users');
 }
 

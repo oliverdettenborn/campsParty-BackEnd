@@ -4,6 +4,8 @@ const db = require('../src/database');
 
 const cleanDatabase = async () => {
     await db.query('DELETE FROM sessions');
+    await db.query('DELETE FROM subscription');
+    await db.query('DELETE FROM choices');
     await db.query('DELETE FROM users');
 }
 
@@ -14,7 +16,7 @@ afterAll(async () => {
     db.end();
 });
 
-let token, userId;
+let token;
 
 describe('POST /sign-up', () => {
     it ('should return status 422 -> with invalid params', async () => {
@@ -50,7 +52,6 @@ describe('POST /sign-up', () => {
         });
 
         expect(response.body).toHaveProperty('id');
-        userId = response.body.id;
     });
 
     it ('should return status 409 -> email is already users', async () => {
