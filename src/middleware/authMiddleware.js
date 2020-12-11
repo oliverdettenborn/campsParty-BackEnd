@@ -10,7 +10,6 @@ async function authMiddleware(req, res, next){
     if(!tokenHeader) return res.status(401).send({ message: 'User token not found' });
   
     const session = await SessionsRepository.findByToken(tokenHeader);
-    console.log(tokenHeader)
     if(!session) return res.status(401).send({ message: 'Invalid token' });
   
     const user = await UserRepository.findById(session.userId);

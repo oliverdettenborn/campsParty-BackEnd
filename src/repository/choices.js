@@ -53,10 +53,17 @@ async function updateChosenActivities(newActivities, userId) {
     }
 }
 
+async function getActivitiesDataById(id) {
+    const response = await connection.query(`SELECT * FROM choices WHERE userId = $1`, [id]);
+    return response.rows;
+}
+
+
 module.exports = {
     getHotelsData,
     getActivitiesData,
     postChosenActivities,
     getNotHotelsData,
-    updateChosenActivities
+    updateChosenActivities,
+    getActivitiesDataById
 };
