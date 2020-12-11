@@ -17,14 +17,16 @@ app.post('/api/users/sign-out', authMiddleware, usersControllers.postSignOut);
 app.put('/api/users/ticketType', authMiddleware, usersControllers.putTicketType);
 
 //choices
-app.get('/partners/hotels', authMiddleware, choicesController.getHotels);
+app.get('/api/partners/hotels', choicesController.getHotels);
+app.get('/api/event/activities/:day', authMiddleware, choicesController.getActivities);
+app.post('/api/event/users/activities', authMiddleware, choicesController.postFormActivities);
 //app.get('/partners/not-hotels', authMiddleware, choicesController.getNotHotelsData);
-app.get('/event/activities/:day', authMiddleware, choicesController.getActivities);
+app.put('/api/event/users/activities', authMiddleware, choicesController.editFormActivities);
 
 //subscription
-app.post('/api/user/subscription', authMiddleware, subscriptionController.create)
-app.put('/api/user/subscription', authMiddleware, subscriptionController.changeData)
-app.get('/api/user/subscription', authMiddleware, subscriptionController.getSubscription)
+app.post('/api/user/subscription', authMiddleware, subscriptionController.create);
+app.put('/api/user/subscription', authMiddleware, subscriptionController.changeData);
+app.get('/api/user/subscription', authMiddleware, subscriptionController.getSubscription);
 
 
 
