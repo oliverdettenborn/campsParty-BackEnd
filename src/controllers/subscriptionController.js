@@ -89,6 +89,7 @@ async function getSubscription(req,res){
   try{
     const subscription = await subscriptionRepository.findByUserId(req.user.id);
     res.status(200).send(subscription);
+    return subscription;
 
   }catch(e){
     console.log(e);
