@@ -16,9 +16,10 @@ async function authMiddleware(req, res, next){
     const user = await UserRepository.findById(session.userId);
     if (!user) return res.status(401).send({ error: 'Invalid token' });
   
-    req.userId = session.userId;
     req.user = { id: user.id, cpf: user.cpf };
+
     next();
+    
   } catch (e) {
     console.error(e);
     return res.sendStatus(500);
