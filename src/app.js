@@ -17,9 +17,11 @@ app.post('/api/users/sign-out', authMiddleware, usersControllers.postSignOut);
 app.put('/api/users/ticketType', authMiddleware, usersControllers.putTicketType);
 
 //choices
-app.get('/partners/hotels', authMiddleware, choicesController.getHotels);
-//app.get('/partners/not-hotels', authMiddleware, choicesController.getNotHotelsData);
 app.get('/event/activities/:day', authMiddleware, choicesController.getActivities);
+
+//rotas não autenticadas para conseguir carregar a informação do hotel no context
+app.get('/partners/hotels', choicesController.getHotels);
+app.get('/partners/not-hotels', choicesController.getNotHotelsData);
 
 //subscription
 app.post('/api/user/subscription', authMiddleware, subscriptionController.create)

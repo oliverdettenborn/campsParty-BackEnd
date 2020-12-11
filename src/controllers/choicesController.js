@@ -1,29 +1,35 @@
 const choicesRepository = require('../repository/choices')
 
 async function getHotels(req, res) {
-    let availableHotels;
     try {
-        availableHotels = await choicesRepository.getHotelsData();
+        const availableHotels = await choicesRepository.getHotelsData();
+        return res.status(200).send(availableHotels);
     }
     catch {
         return res.sendStatus(500);
     }
-    
-    return res.status(200).send(availableHotels);
 }
 
 async function getActivities(req, res) {
     const { day } = req.params;
-
-    let availableActivities;
     try {
-        availableActivities = await choicesRepository.getActivitiesData(day);
+        const availableActivities = await choicesRepository.getActivitiesData(day);
+        return res.status(200).send(availableActivities);
     }
     catch {
         return res.sendStatus(500);
     }
-    
-    return res.status(200).send(availableActivities);
 }
 
-module.exports = { getHotels, getActivities };
+async function getNotHotelsData(req, res) {
+    try {
+        const availableHotels = await choicesRepository.getNotHotelsData();
+        return res.status(200).send(availableHotels);
+    }
+    catch {
+        return res.sendStatus(500);
+    }
+}
+
+
+module.exports = { getHotels, getActivities, getNotHotelsData };
