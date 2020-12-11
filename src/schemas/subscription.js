@@ -12,7 +12,7 @@ const subspriptionSchema = Joi.object({
   gender: Joi.string().valid('M','F','NI').required(),
   accommodationId: Joi.string().pattern(/^[\d]+$/, "only numbers").required(),
   phone: Joi.string().pattern(/^(\(\d{2}\)\s)(\d{4,5}\-\d{4})$/, 'validate phone to (99) 99999-9999').required(),
-  admissionCost: Joi.string().pattern(/^[0-9]+(,[0-9]{1,2})?$/, 'validate format money xx,xx').required()
+  admissionCost: Joi.string().required()
 })
 
 module.exports = subspriptionSchema;
