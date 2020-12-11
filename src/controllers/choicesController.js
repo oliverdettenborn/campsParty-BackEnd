@@ -74,19 +74,13 @@ async function getNotHotelsData(req, res) {
 
 async function getActivitiesByUserId(req, res) {
     const { id } = req.user;
-
-    let selectedActivities;
-    let subscription;
     try {
-        subscription = await subscriptionRepository.findByUserId(id);
-        selectedActivities = await choicesRepository.getActivitiesDataById(id);
+        const selectedActivities = await choicesRepository.getActivitiesDataById(id);
+        return res.status(200).send(selectedActivities);
     }
     catch {
         return res.sendStatus(500);
     }
-    
-    return res.status(200).send({selectedActivities, subscription});
-    
 }
 
 

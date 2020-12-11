@@ -20,7 +20,7 @@ app.put('/api/users/ticketType', authMiddleware, usersControllers.putTicketType)
 app.get('/api/event/activities/:day', authMiddleware, choicesController.getActivities);
 app.post('/api/event/users/activities', authMiddleware, choicesController.postFormActivities);
 app.put('/api/event/users/activities', authMiddleware, choicesController.editFormActivities);
-app.get('/event/activities/user/:id', authMiddleware, choicesController.getActivitiesByUserId);
+app.get('/api/event/activities/user', authMiddleware, choicesController.getActivitiesByUserId);
 
 //rotas não autenticadas para conseguir carregar a informação do hotel no context
 app.get('/api/partners/hotels', choicesController.getHotels);
