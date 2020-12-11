@@ -9,10 +9,25 @@ async function create(req,res){
     if (error){
       return res.status(422).send({ error: error.details[0].message });
     }
-    const data = stripHtml(req.body);
+    const { 
+      name,
+      lastName,
+      address,
+      numberAddress,
+      addOnAddress,
+      city,
+      uf,
+      postalCode,
+      gender,
+      accommodationId,
+      phone,
+      admissionCost
+    } = req.body;
+
+    const data = stripHtml({ name, lastName, address, numberAddress, addOnAddress, city, uf, postalCode, gender, phone, admissionCost});
     const { id, cpf } = req.user;
 
-    const newSubscription = await subscriptionRepository.create(id, cpf, data);
+    const newSubscription = await subscriptionRepository.create(id, cpf, {...data, accommodationId});
     const updateUser = await usersRepository.findById(id);
     const userData = filterObject(updateUser, ['password']);
 
@@ -33,14 +48,29 @@ async function changeData(req,res){
     if (error){
       return res.status(422).send({ error: error.details[0].message });
     }
-    const data = stripHtml(req.body);
+    const { 
+      name,
+      lastName,
+      address,
+      numberAddress,
+      addOnAddress,
+      city,
+      uf,
+      postalCode,
+      gender,
+      accommodationId,
+      phone,
+      admissionCost
+    } = req.body;
+
+    const data = stripHtml({ name, lastName, address, numberAddress, addOnAddress, city, uf, postalCode, gender, phone, admissionCost});
     const { id } = req.user;
 
     const oldSubscription = await subscriptionRepository.findByUserId(id);
     if(!oldSubscription){
       return res.status(404).send({ error: 'Subscription not found' })
     }
-    const refreshSubscription = await subscriptionRepository.changeInformationUser(id, oldSubscription, data);
+    const refreshSubscription = await subscriptionRepository.changeInformationUser(id, oldSubscription, {...data, accommodationId});
     const updateUser = await usersRepository.findById(id);
     const userData = filterObject(updateUser, ['password']);
     
