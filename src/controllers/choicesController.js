@@ -1,36 +1,39 @@
 const choicesRepository = require('../repository/choices')
 
 async function getHotels(req, res) {
-    let availableHotels;
     try {
-        availableHotels = await choicesRepository.getHotelsData();
+        const availableHotels = await choicesRepository.getHotelsData();
+
+        return res.status(200).send(availableHotels);
     }
-    catch {
+    catch(err) {
+        console.log(err);
         return res.sendStatus(500);
     }
-    
-    return res.status(200).send(availableHotels);
 }
 
 async function getActivities(req, res) {
-    const { day } = req.params;
-
-    let availableActivities;
     try {
-        availableActivities = await choicesRepository.getActivitiesData(day);
+        const { day } = req.params;
+        if (day !== 'friday' && day !== 'saturday' && day !== 'sunday') {
+            return res.sendStatus(400);
+        }
+
+        let availableActivities = await choicesRepository.getActivitiesData(day);
+        return res.status(200).send(availableActivities);
     }
-    catch {
+    catch(err) {
+        console.log(err);
         return res.sendStatus(500);
     }
-    
-    return res.status(200).send(availableActivities);
 }
 
 async function postFormActivities(req, res) {
     try {
         const userActivities = req.body;
-        // const { id } = req.user;
-        const id = 1;
+        if (Object.keys(userActivities).length === 0) return res.sendStatus(400);
+
+        const { id } = req.user;
 
         await choicesRepository.postChosenActivities(userActivities, id);
         
@@ -42,4 +45,21 @@ async function postFormActivities(req, res) {
     }
 }
 
-module.exports = { getHotels, getActivities, postFormActivities };
+async function editFormActivities(req, res) {
+    try {
+        const newUserActivities = req.body;
+        if (Object.keys(newUserActivities).length === 0) return res.sendStatus(400);
+        
+        const { id } = req.user;
+
+        await choicesRepository.updateChosenActivities(newUserActivities, id);
+
+        return res.sendStatus(200);
+    }
+    catch(err) {
+        console.log(err);
+        return res.sendStatus(500);
+    }
+}
+
+module.exports = { getHotels, getActivities, postFormActivities, editFormActivities };
