@@ -29,7 +29,7 @@ async function postChosenActivities(userActivities, userId) {
                 'INSERT INTO choices ("userId", "hourOfTheDay", activity, day) VALUES ($1, $2, $3, $4)',
                 toDB
             );
-            await db.query('UPDATE users SET "choosedActivities"=true');
+            await connection.query('UPDATE users SET "choosedActivities"=true');
         }
     }
 }
