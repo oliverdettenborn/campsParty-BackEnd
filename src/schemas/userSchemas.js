@@ -6,7 +6,6 @@ const signUp = Joi.object({
     ticketType: Joi.string().valid('none','hotel','tent').required(),
     password: Joi.string().alphanum().min(6).max(16).required(),
     passwordConfirmation: Joi.ref('password'),
-    ticketType: Joi.string().valid('none','hotel','tent').required(),
 });
 
 const signIn = Joi.object({
