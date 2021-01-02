@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/favicon.ico" width="100" alt="Camps Party" />
+  <img src="https://raw.githubusercontent.com/thaliadettenborn/campsParty-FrontEnd/main/public/favicon.ico" width="100" alt="Camps Party" />
 </p>
 
 # Camps Party (FrontEnd)
@@ -78,7 +78,8 @@ $ npm test
 ## REST API
 <br>
 Documentation: https://documenter.getpostman.com/view/13440732/TVt2cPWd#dc4de5ea-d64a-45c2-9e7d-5c0d9463c2fe
-<br>
+<br><br>
+
 ### `POST /api/users/sign-up`
 
 #### Request
