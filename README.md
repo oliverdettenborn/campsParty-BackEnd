@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/thaliadettenborn/campsParty-FrontEnd/main/public/favicon.ico" width="100" alt="Camps Party" />
 </p>
 
-# Camps Party (FrontEnd)
+# Camps Party (BackEnd)
 
  ![license](https://img.shields.io/github/license/thaliadettenborn/campsParty-BackEnd?style=flat-square) ![total lines](https://img.shields.io/tokei/lines/github/thaliadettenborn/campsParty-BackEnd) ![last commit](https://img.shields.io/github/last-commit/thaliadettenborn/campsParty-BackEnd?style=flat-square) ![issues](https://img.shields.io/github/package-json/v/thaliadettenborn/campsParty-BackEnd?style=flat-square) ![forks](https://img.shields.io/github/forks/thaliadettenborn/campsParty-BackEnd?style=flat-square) 
 
