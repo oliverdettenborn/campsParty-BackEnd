@@ -10,7 +10,7 @@
 ## About
 <p>
   API for integration between the database and the website of the Camps Party event.<br><br>
-  <a href="https://github.com/thaliadettenborn/campsParty-FrontEnd" target='_blank'>
+  <a href="https://github.com/oliverdettenborn/campsParty-FrontEnd" target='_blank'>
     ✔️ Click here to view the front-end repository.
   </a>
 </p>
