@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/thaliadettenborn/campsParty-FrontEnd/main/public/favicon.ico" width="100" alt="Camps Party" />
+  <img src="https://raw.githubusercontent.com/oliverdettenborn/campsParty-FrontEnd/main/public/favicon.ico" width="100" alt="Camps Party" />
 </p>
 
 # Camps Party (BackEnd)
 
- ![license](https://img.shields.io/github/license/thaliadettenborn/campsParty-BackEnd?style=flat-square) ![total lines](https://img.shields.io/tokei/lines/github/thaliadettenborn/campsParty-BackEnd) ![last commit](https://img.shields.io/github/last-commit/thaliadettenborn/campsParty-BackEnd?style=flat-square) ![issues](https://img.shields.io/github/package-json/v/thaliadettenborn/campsParty-BackEnd?style=flat-square) ![forks](https://img.shields.io/github/forks/thaliadettenborn/campsParty-BackEnd?style=flat-square) 
+ ![license](https://img.shields.io/github/license/oliverdettenborn/campsParty-BackEnd?style=flat-square) ![total lines](https://img.shields.io/tokei/lines/github/oliverdettenborn/campsParty-BackEnd) ![last commit](https://img.shields.io/github/last-commit/oliverdettenborn/campsParty-BackEnd?style=flat-square) ![issues](https://img.shields.io/github/package-json/v/oliverdettenborn/campsParty-BackEnd?style=flat-square) ![forks](https://img.shields.io/github/forks/oliverdettenborn/campsParty-BackEnd?style=flat-square) 
 
 <br><br>
 ## About
@@ -685,7 +685,7 @@ The application layout is available on Heroku:
 ## Authors
 ---
 <p align='center'>
-  Made by Alice Amorim, Gabriel Milhomem, Lucas Kenji, and Thalia Dettenborn 👋🏽 Get in Touch! <br><br>
+  Made by Alice Amorim, Gabriel Milhomem, Lucas Kenji, and Oliver Dettenborn 👋🏽 Get in Touch! <br><br>
 
   <table>
     <tr>
@@ -721,10 +721,10 @@ The application layout is available on Heroku:
         </a><br />
       <td align="center">
         <img src="https://avatars0.githubusercontent.com/u/70967247?s=460&u=0684339f0717ae41ce18689351f0215fdf270590&v=4" width="100px;"/> <br />
-        <sub><b>Thalia Dettenborn</b></sub></a> <br />
-        <a href="https://www.linkedin.com/in/thaliarobertadettenborn/"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>
-        <a href="mailto:thalia.born@gmail.com"><img src="https://img.shields.io/badge/gmail-D14836?&style=for-the-badge&logo=gmail&logoColor=white"/></a>
-        <a href="https://github.com/thaliadettenborn"><img src="https://img.shields.io/badge/github-%23100000.svg?&style=for-the-badge&logo=github&logoColor=white" /></a><br />
+        <sub><b>Oliver Dettenborn</b></sub></a> <br />
+        <a href="https://www.linkedin.com/in/oliverdettenborn/"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>
+        <a href="mailto:oliver.dettenbornn@gmail.com"><img src="https://img.shields.io/badge/gmail-D14836?&style=for-the-badge&logo=gmail&logoColor=white"/></a>
+        <a href="https://github.com/oliverdettenborn"><img src="https://img.shields.io/badge/github-%23100000.svg?&style=for-the-badge&logo=github&logoColor=white" /></a><br />
     </tr>
   </table>
 
